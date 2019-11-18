@@ -16,7 +16,10 @@ ActiveRecord::Schema.define(version: 2019_11_18_160239) do
   enable_extension "plpgsql"
 
   create_table "runners", force: :cascade do |t|
-    t.string "token"
+    t.string "token", null: false
+    t.string "description"
+    t.string "tags"
+    t.integer "runtime", limit: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
