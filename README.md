@@ -57,6 +57,15 @@ And your runner will automatically start requesting jobs.
 
 `docker run --rm --name gsr-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -v /tmp/gsr-postgres:/var/lib/postgresql/data postgres`
 
+.env.development
+
+```
+# Example .env.development, meant to be updated.
+DB_USER=postgres
+DB_PASS=mysecretpassword
+DB_HOST=localhost
+```
+
 ## Others
 
 This README would normally document whatever steps are necessary to get the application up and running.
