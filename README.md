@@ -55,9 +55,9 @@ And your runner will automatically start requesting jobs.
 
 ## Development
 
-`docker run --rm --name gsr-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -v /tmp/gsr-postgres:/var/lib/postgresql/data postgres`
+You can start postgres instance by executing `bin/start-dev-db`.
 
-.env.development
+Please make sure `.env.development` is properly configured, like the following:
 
 ```
 # Example .env.development, meant to be updated.

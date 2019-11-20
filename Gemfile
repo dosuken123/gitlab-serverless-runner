@@ -10,6 +10,8 @@ gem "webpacker", git: "https://github.com/tongueroo/webpacker.git", branch: "jet
 gem "pg", "~> 1.1.3"
 
 gem "dynomite"
+gem "haml"
+gem "haml-jets"
 
 # development and test groups are not bundled as part of the deployment
 group :development, :test do
@@ -18,6 +20,7 @@ group :development, :test do
   gem 'shotgun'
   gem 'rack'
   gem 'puma'
+  gem 'pry'
 end
 
 group :test do

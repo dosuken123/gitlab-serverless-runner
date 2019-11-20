@@ -1,0 +1,23 @@
+= form_with(model: runner, local: true) do |form|
+  - if runner.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(runner.errors.count, "error")
+        prohibited this runner from being saved:
+      %ul
+        - runner.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :token
+    = form.text_field :token
+  .field
+    = form.label :description
+    = form.text_field :description
+  .field
+    = form.label :tags
+    = form.text_field :tags
+  .field
+    = form.label :runtime
+    = form.text_field :runtime
+  .actions
+    = form.submit

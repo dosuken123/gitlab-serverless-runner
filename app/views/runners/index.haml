@@ -1,0 +1,15 @@
+%h1 Runners
+%table
+  %thead
+    %tr
+      %th Token
+      %th{:colspan => "3"}
+  %tbody
+    - @runners.each do |runner|
+      %tr.jets-element-to-delete
+        %td= runner.token
+        %td= link_to 'Show', runner
+        %td= link_to 'Edit', edit_runner_path(runner)
+        %td= link_to 'Destroy', runner, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Runner', new_runner_path

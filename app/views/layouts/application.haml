@@ -1,0 +1,21 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "#000000", :name => "theme-color"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    = csrf_meta_tags
+    %title Jets App
+    = javascript_pack_tag "application"
+    = stylesheet_pack_tag "theme"
+    %link{:href => favicon_path, :rel => "shortcut icon"}/
+  %body
+    %section.starter
+      .container
+        .row
+          .col-md-9.content-body
+            - if @title
+              %h1= @title
+            = yield
