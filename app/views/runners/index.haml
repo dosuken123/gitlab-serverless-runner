@@ -2,12 +2,20 @@
 %table
   %thead
     %tr
+      %th URL
       %th Token
+      %th Description
+      %th Tags
+      %th Runtime
       %th{:colspan => "3"}
   %tbody
     - @runners.each do |runner|
       %tr.jets-element-to-delete
+        %td= runner.url
         %td= runner.token
+        %td= runner.description
+        %td= runner.tags
+        %td= runner.runtime
         %td= link_to 'Show', runner
         %td= link_to 'Edit', edit_runner_path(runner)
         %td= link_to 'Destroy', runner, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,6 +1,18 @@
 %p
+  %strong URL:
+  = @runner.url
+%p
   %strong Token:
   = @runner.token
+%p
+  %strong Description:
+  = @runner.description
+%p
+  %strong Tags:
+  = @runner.tags
+%p
+  %strong Runtime:
+  = @runner.runtime
 = link_to 'Edit', edit_runner_path(@runner)
 |
 = link_to 'Back', runners_path

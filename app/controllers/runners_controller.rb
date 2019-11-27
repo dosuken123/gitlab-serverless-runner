@@ -64,6 +64,6 @@ private
   end
 
   def runner_params
-    params.require(:runner).permit(:token)
+    params.require(:runner).permit(:url, :token, :description, :tags, :runtime)
   end
 end
