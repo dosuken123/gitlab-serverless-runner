@@ -22,8 +22,9 @@ class RunnersController < ApplicationController
   # POST /runners
   def create
     @runner = Runner.new(runner_params)
+    @runner.token = register_runner
 
-    if @runner.save
+    if @runner.save && 
       if request.xhr?
         render json: {success: true, location: url_for(@runner)}
       else
@@ -65,5 +66,13 @@ private
 
   def runner_params
     params.require(:runner).permit(:url, :token, :description, :tags, :runtime)
+  end
+
+  def register_runner
+    response = HTTParty.post("#{@runner.url}/api/v4/runners", body: { token: @runner.token })
+
+    return unless response.code == 201
+
+    response.parsed_response['token']
   end
 end

@@ -12,6 +12,7 @@ gem "pg", "~> 1.1.3"
 gem "dynomite"
 gem "haml"
 gem "haml-jets"
+gem "httparty"
 
 # development and test groups are not bundled as part of the deployment
 group :development, :test do

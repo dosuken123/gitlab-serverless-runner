@@ -8,6 +8,7 @@ default: &default
   host: <%= ENV["DB_HOST"] %>
   # url: <%= ENV['DATABASE_URL'] %> # takes higher precedence than other settings
   reconnect: true
+  port: 5433
 
 development:
   <<: *default
