@@ -24,5 +24,4 @@ ActiveRecord::Schema.define(version: 2019_11_26_230239) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "url"
   end
-
 end

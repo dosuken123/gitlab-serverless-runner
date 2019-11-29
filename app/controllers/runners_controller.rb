@@ -1,5 +1,5 @@
 class RunnersController < ApplicationController
-  before_action :set_runner, only: [:show, :edit, :update, :delete]
+  before_action :set_runner, only: [:show, :edit, :update, :delete, :job_request]
 
   # GET /runners
   def index
@@ -19,12 +19,18 @@ class RunnersController < ApplicationController
   def edit
   end
 
+  def job_request
+    response = HTTParty.post("#{@runner.url}/api/v4/jobs/request", body: { token: @runner.token })
+
+    render json: response.to_json
+  end
+
   # POST /runners
   def create
     @runner = Runner.new(runner_params)
     @runner.token = register_runner
 
-    if @runner.save && 
+    if @runner.save
       if request.xhr?
         render json: {success: true, location: url_for(@runner)}
       else
