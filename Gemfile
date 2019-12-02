@@ -13,6 +13,8 @@ gem "dynomite"
 gem "haml"
 gem "haml-jets"
 gem "httparty"
+gem 'state_machines'
+gem 'state_machines-activerecord'
 
 # development and test groups are not bundled as part of the deployment
 group :development, :test do
