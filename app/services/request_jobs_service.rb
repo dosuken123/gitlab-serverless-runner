@@ -6,7 +6,7 @@ class JobRequestService
       
       next unless response.status == 201
 
-      runner.assign!(response.body)
+      runner.assign_job_with(response.body)
     end
   end
 end
