@@ -3,6 +3,8 @@ class RunnerJob < ApplicationRecord
 
   after_save :run, if: :ready_to_run?
 
+  COMPLETE_STATUS = %i[success failed canceled]
+
   state_machine :status, initial: :idle do
     event :run do
       transition idle: :running
@@ -26,6 +28,10 @@ class RunnerJob < ApplicationRecord
 
     before_transition any => :idle do |runner_job, transition|
       runner_job.specification = nil
+    end
+
+    after_transition any => COMPLETE_STATUS do |runner_job, transition|
+      RunnerJobsJob.perform_later(:report_result, runner_job_id)
     end
   end
 

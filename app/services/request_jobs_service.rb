@@ -1,4 +1,4 @@
-class JobRequestService
+class RequestJobsService
   def execute
     Runner.idle.find_each do |runner|
       response = HTTParty.post("#{runner.url}/api/v4/jobs/request",
