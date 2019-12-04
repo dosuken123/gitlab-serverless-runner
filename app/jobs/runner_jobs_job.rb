@@ -6,7 +6,7 @@ class RunnerJobsJob < Jets::Job::Base
     RunnerJob.find_by_runner_job_id(runner_job_id).try do |runner_job|
       response = HTTParty.post("#{runner.url}/api/v4/jobs/request", body: { token: runner.token })
 
-      retry unless response.status == 201
+      return unless response.status == 201
 
       runner_job.recycle!
     end

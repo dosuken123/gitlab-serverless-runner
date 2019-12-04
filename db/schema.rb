@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_000239) do
   create_table "runner_jobs", force: :cascade do |t|
     t.bigint "runner_id"
     t.bigint "job_id"
+    t.string "token"
     t.integer "status", limit: 2, null: false
     t.jsonb "specification", null: false
     t.datetime "created_at", precision: 6, null: false

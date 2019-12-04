@@ -27,10 +27,9 @@ class RunnersController < ApplicationController
 
   # POST /runners
   def create
-    @runner = Runner.new(runner_params)
-    @runner.token = register_runner
+    @runner = CreateRunnerService.new(runner_params).execute
 
-    if @runner.save
+    if @runner.persisted?
       if request.xhr?
         render json: {success: true, location: url_for(@runner)}
       else
@@ -43,7 +42,7 @@ class RunnersController < ApplicationController
 
   # PUT /runners/1
   def update
-    if @runner.update(runner_params)
+    if CreateRunnerService.new(runner_params).execute(@runner)
       if request.xhr?
         render json: {success: true, location: url_for(@runner)}
       else
@@ -71,14 +70,6 @@ private
   end
 
   def runner_params
-    params.require(:runner).permit(:url, :token, :description, :tags, :runtime)
-  end
-
-  def register_runner
-    response = HTTParty.post("#{@runner.url}/api/v4/runners", body: { token: @runner.token })
-
-    return unless response.code == 201
-
-    response.parsed_response['token']
+    params.require(:runner).permit(:url, :token, :description, :tags, :runtime, :concurrency)
   end
 end
