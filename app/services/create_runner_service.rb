@@ -1,7 +1,7 @@
 class CreateRunnerService < BaseService
   def execute
     runner = Runner.new(params)
-    runner.allocate_jobs(concurrency)
+    runner.reallocate_builds(concurrency)
 
     return runner unless runner.valid?    
 

@@ -1,12 +1,6 @@
 class UpdateRunnerService < BaseService
   def execute(runner)
-    if runner.concurrency < new_concurrency
-      runner.reallocate_jobs(new_concurrency)
-    elsif runner.concurrency > new_concurrency
-      # NOTE: This could lose some running job information
-      runner.deallocate_jobs(new_concurrency)
-    end
-
+    runner.reallocate_build(new_concurrency)
     runner.update(params)
   end
 

@@ -2,7 +2,7 @@ class Runner < ApplicationRecord
   validates :url, presence: true
   validates :token, presence: true
 
-  has_many :runner_jobs
+  has_many :runner_builds
 
   validate :valid_concurrency?
 
@@ -10,36 +10,36 @@ class Runner < ApplicationRecord
     ruby_2_5: 0
   }
 
-  def assign_job_with(specification)
-    runner_jobs.idle.limit(1).update_all(specification: specification)
+  def assign_build(build_id, token, specification)
+    runner_builds.unassigned.limit(1)
+      .update_all(build_id: build_id, token: build_id, specification: specification) > 0
   end
 
-  def deassign_job_from(job_id)
-    runner_jobs.find_by_job_id(job_id).recycle
+  def free_build(buld_id)
+    runner_builds.where(build_id: buld_id)
+      .update_all(build_id: build_id, token: build_id, specification: specification)
   end
 
-  def allocate_jobs(concurrency)
-    concurrency.times { runner_jobs.build }
-  end
+  def reallocate_builds(new_concurrency)
+    cur_concurrency = concurrency
 
-  def reallocate_jobs(concurrency)
-    extra = concurrency - self.concurrency
-    extra.times { runner_jobs.build }
-  end
-
-  def deallocate_jobs(concurrency)
-    shrink = self.concurrency - concurrency
-    runner_jobs.limit(shrink).destroy_all
+    if new_concurrency > cur_concurrency
+      (new_concurrency - cur_concurrency).times { runner_builds.build }
+    elsif new_concurrency < cur_concurrency
+      runner_builds.limit(cur_concurrency - new_concurrency).destroy_all
+    end
   end
 
   def concurrency
-    @concurrency ||= runner_jobs.count
+    runner_builds.count
   end
 
   private
 
   def valid_concurrency?
-    unless concurrency >= 1 && concurrency <= 10
+    cur_concurrency = concurrency
+
+    unless cur_concurrency >= 1 && cur_concurrency <= 10
       errors.add(:concurrency, 'must be between 1 and 10')
     end
   end
