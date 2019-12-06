@@ -2,7 +2,7 @@ class Runner < ApplicationRecord
   validates :url, presence: true
   validates :token, presence: true
 
-  has_many :runner_builds
+  has_many :builds
 
   validate :valid_concurrency?
 
@@ -11,12 +11,12 @@ class Runner < ApplicationRecord
   }
 
   def assign_build(build_id, token, specification)
-    runner_builds.unassigned.limit(1)
+    builds.unassigned.limit(1)
       .update_all(build_id: build_id, token: build_id, specification: specification) > 0
   end
 
   def free_build(buld_id)
-    runner_builds.where(build_id: buld_id)
+    builds.where(build_id: buld_id)
       .update_all(build_id: build_id, token: build_id, specification: specification)
   end
 
@@ -24,14 +24,14 @@ class Runner < ApplicationRecord
     cur_concurrency = concurrency
 
     if new_concurrency > cur_concurrency
-      (new_concurrency - cur_concurrency).times { runner_builds.build }
+      (new_concurrency - cur_concurrency).times { builds.build }
     elsif new_concurrency < cur_concurrency
-      runner_builds.limit(cur_concurrency - new_concurrency).destroy_all
+      builds.limit(cur_concurrency - new_concurrency).destroy_all
     end
   end
 
   def concurrency
-    runner_builds.count
+    builds.count
   end
 
   private
