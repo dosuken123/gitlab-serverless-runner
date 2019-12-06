@@ -15,14 +15,15 @@ ActiveRecord::Schema.define(version: 2019_11_18_160239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "runner_builds", force: :cascade do |t|
+  create_table "jobs", force: :cascade do |t|
     t.bigint "runner_id"
     t.bigint "build_id"
     t.string "token"
     t.jsonb "specification"
+    t.string "trace_file"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["runner_id"], name: "index_runner_builds_on_runner_id"
+    t.index ["runner_id"], name: "index_jobs_on_runner_id"
   end
 
   create_table "runners", force: :cascade do |t|
@@ -31,9 +32,10 @@ ActiveRecord::Schema.define(version: 2019_11_18_160239) do
     t.string "tags"
     t.integer "runtime", limit: 2, null: false
     t.string "url", null: false
+    t.integer "concurrency", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "runner_builds", "runners", on_delete: :cascade
+  add_foreign_key "jobs", "runners", on_delete: :cascade
 end

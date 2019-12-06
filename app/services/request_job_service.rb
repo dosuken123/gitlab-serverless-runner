@@ -1,4 +1,4 @@
-class RequestBuildService
+class RequestJobService
   def execute(runner)
     response = HTTParty.post("#{runner.url}/api/v4/jobs/request",
       body: { token: runner.token })
@@ -8,6 +8,6 @@ class RequestBuildService
     specification = response.body
     build_id = specification[:build_id]
     token = specification[:token]
-    runner.assign_build(build_id, token, specification)
+    runner.jobs.create(build_id, token, specification)
   end
 end

@@ -1,7 +1,6 @@
-class CreateRunnerService < BaseService
+class RegisterRunnerService < BaseService
   def execute
     runner = Runner.new(params)
-    runner.reallocate_builds(concurrency)
 
     return runner unless runner.valid?    
 
@@ -14,11 +13,5 @@ class CreateRunnerService < BaseService
 
     runner.token = response.parsed_response['token']
     runner.tap(&:save)
-  end
-
-  private
-
-  def concurrency
-    params[:concurrency].to_i
   end
 end
