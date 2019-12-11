@@ -1,7 +1,7 @@
 class PatchTraceService
-  def execute(job, chunk, cur_position)
+  def execute(job, chunk, offset)
     headers = {
-      'Content-Range' => "#{cur_position}-#{cur_position + chunk.length}",
+      'Content-Range' => "#{offset}-#{offset + chunk.length}",
       'Content-Type' => 'text/plain',
       'HTTP_JOB_TOKEN' => job.token
     }

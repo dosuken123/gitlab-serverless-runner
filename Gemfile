@@ -15,6 +15,7 @@ gem "haml-jets"
 gem "httparty"
 gem 'state_machines'
 gem 'state_machines-activerecord'
+gem 'file-tail'
 
 # development and test groups are not bundled as part of the deployment
 group :development, :test do
