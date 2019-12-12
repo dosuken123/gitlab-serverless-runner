@@ -17,10 +17,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_160239) do
 
   create_table "jobs", force: :cascade do |t|
     t.bigint "runner_id"
-    t.bigint "build_id"
-    t.string "token"
-    t.jsonb "specification"
-    t.string "trace_file"
+    t.jsonb "spec"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["runner_id"], name: "index_jobs_on_runner_id"

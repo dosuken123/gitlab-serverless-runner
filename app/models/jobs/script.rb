@@ -13,11 +13,11 @@ module Jobs
           stream.write("set -e\n")
           stream.write("exec > #{job.trace_path} 2>&1\n")
 
-          job.specification['variables'].each do |variable|
+          job.spec['variables'].each do |variable|
             stream.write(%Q{export #{variable['key']}="#{variable['value']}"\n})
           end
 
-          job.specification['steps'].first['script'].each do |script|
+          job.spec['steps'].first['script'].each do |script|
             stream.write("#{script}\n")
           end
         end

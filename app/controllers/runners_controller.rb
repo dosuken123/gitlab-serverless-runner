@@ -27,7 +27,7 @@ class RunnersController < ApplicationController
 
   # POST /runners
   def create
-    @runner = RegisterRunnerService.new(runner_params).execute
+    @runner = Runners::RegisterRunnerService.new(runner_params).execute
 
     if @runner.persisted?
       if request.xhr?

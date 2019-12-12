@@ -24,6 +24,6 @@
     = form.text_field :runtime, value: 'ruby_2_5'
   .field
     = form.label :concurrency
-    = form.text_field :concurrency, value: concurrency.to_s
+    = form.text_field :concurrency, value: runner.concurrency.to_s
   .actions
     = form.submit

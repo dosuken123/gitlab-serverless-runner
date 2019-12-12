@@ -9,13 +9,9 @@ class RunnerJob < Jets::Job::Base
     end
   end
 
-  def report_result(runner_job_id)
-    RunnerJob.find_by_runner_job_id(runner_job_id).try do |runner_job|
-      response = HTTParty.post("#{runner.url}/api/v4/jobs/request", body: { token: runner.token })
-
-      return unless response.status == 201
-
-      runner_job.recycle!
+  def execute_job
+    Job.find_by_id(event[:job_id]).try do |job|
+      Jobs::ExecuteJobService.new.execute(job)
     end
   end
 end
