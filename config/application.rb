@@ -60,5 +60,6 @@ Jets.application.configure do
   # local testing environment you may want to log these messages to 'test.log' file to keep your
   # testing suite output readable.
   # config.logger = Jets::Logger.new($strerr)
+  config.logger = Jets::Logger.new('test.log')
 
 end
