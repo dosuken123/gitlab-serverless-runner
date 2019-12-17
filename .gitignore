@@ -14,3 +14,4 @@ tmp
 /public/packs-test
 /node_modules
 traces
+*.log
