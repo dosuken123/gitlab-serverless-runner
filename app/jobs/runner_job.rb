@@ -5,7 +5,7 @@ class RunnerJob < Jets::Job::Base
   rate '1 minute'
   def request_jobs
     Runner.has_capacity.find_each do |runner|
-      RequestJobsService.new.execute(runner)
+      Runners::RequestJobService.new.execute(runner)
     end
   end
 
