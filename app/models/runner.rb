@@ -10,7 +10,7 @@ class Runner < ApplicationRecord
   }
 
   scope :has_capacity,
-    -> { where('(SELECT COUNT(*) FROM jobs WHERE runners.id = jobs.runner_id) > concurrency') }
+    -> { where('concurrency > (SELECT COUNT(*) FROM jobs WHERE runners.id = jobs.runner_id)') }
 
   def has_capacity?
     jobs.count < concurrency

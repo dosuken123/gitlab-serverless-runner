@@ -2,6 +2,7 @@ class RunnerJob < Jets::Job::Base
   # Adjust to increase the default timeout for all Job classes
   class_timeout 60
 
+  iam_policy "lambda"
   rate '1 minute'
   def request_jobs
     Runner.has_capacity.find_each do |runner|

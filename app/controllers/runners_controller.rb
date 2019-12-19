@@ -20,9 +20,9 @@ class RunnersController < ApplicationController
   end
 
   def job_request
-    response = HTTParty.post("#{@runner.url}/api/v4/jobs/request", body: { token: @runner.token })
+    RunnerJob.perform_now(:request_jobs)
 
-    render json: response.to_json
+    render :index
   end
 
   # POST /runners

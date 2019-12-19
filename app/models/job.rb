@@ -12,7 +12,10 @@ class Job < ApplicationRecord
   private
 
   def trace_dir
-    File.join(Jets.root, 'traces')
+    # Only /tmp seems to be writable in AWS Lambda.
+    File.join('/tmp', 'traces').tap do |path|
+      FileUtils.mkdir_p(path)
+    end
   end
 
   def execute_async
